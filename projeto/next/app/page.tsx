@@ -1,6 +1,6 @@
 async function getPosts() {
   const res = await fetch(
-    "http://localhost:1337/api/posts"
+    "http://localhost:1337/api/listas"
   )
 
   const data = await res.json()
