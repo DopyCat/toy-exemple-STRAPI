@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "listas",
+  "info": {
+    "singularName": "lista",
+    "pluralName": "listas",
+    "displayName": "Lista"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Texto": {
+      "type": "string"
+    }
+  }
+}
