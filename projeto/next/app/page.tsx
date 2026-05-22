@@ -8,8 +8,17 @@ async function getPosts() {
   return data.data
 }
 
+async function getStatus() {
+  const res = await fetch(
+    "http://localhost:4000/api/status"
+  )
+
+  return res.json()
+}
+
 export default async function Home() {
   const posts = await getPosts()
+  const status = await getStatus()
 
   return (
     <div>
@@ -18,6 +27,7 @@ export default async function Home() {
       {posts.map((post:any)=>(
         <div key={post.id}>
           <h2>{post.titulo}</h2>
+          <p>{status.mensagem}</p>
         </div>
       ))}
     </div>
