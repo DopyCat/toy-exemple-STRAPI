@@ -1,4 +1,4 @@
-async function getPosts() {
+async function getListas() {
   const res = await fetch(
     "http://localhost:1337/api/listas"
   )
@@ -17,16 +17,16 @@ async function getStatus() {
 }
 
 export default async function Home() {
-  const posts = await getPosts()
+  const Listas = await getListas()
   const status = await getStatus()
 
   return (
     <div>
-      <h1>Posts</h1>
+      <h1>Listas</h1>
 
-      {posts.map((post:any)=>(
-        <div key={post.id}>
-          <h2>{post.titulo}</h2>
+      {Listas.map((lista:any)=>(
+        <div key={lista.id}>
+          <h2>{lista.Texto}</h2>
           <p>{status.mensagem}</p>
         </div>
       ))}
