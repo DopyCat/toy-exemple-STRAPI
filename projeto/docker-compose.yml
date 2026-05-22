@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  next:
+    build:
+      context: ./next
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+      - strapi
+
+  strapi:
+    build:
+      context: ./strapi
+    ports:
+      - "1337:1337"
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "4000:4000"
