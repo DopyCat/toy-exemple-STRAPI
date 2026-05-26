@@ -15,4 +15,4 @@ ENV NODE_ENV=production
 COPY --from=builder /srv/app .
 RUN npm prune --production --silent || true
 EXPOSE 1337
-CMD ["npm","run","start"]
+CMD ["npm","run","dev"]
