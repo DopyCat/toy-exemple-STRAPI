@@ -1,0 +1,19 @@
+
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+
+  strapi:
+    build:
+      context: ./strapi
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+    environment:
+      - NODE_ENV=production

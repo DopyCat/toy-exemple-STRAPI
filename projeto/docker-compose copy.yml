@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+  strapi:
+    build:
+      context: ./strapi
+      dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+
+  next:
+    build:
+      context: ./next
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+      - strapi
