@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - nextjs
+      - strapi
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  nextjs:
+    build:
+      context: ./nextjs-project
+      dockerfile: Dockerfile
+    container_name: nextjs
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_STRAPI_URL=http://localhost
+      - STRAPI_INTERNAL_URL=http://strapi:1337
+    depends_on:
+      - strapi
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  strapi:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: strapi
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=1337
+      - APP_KEYS=mhwTXud+0K03KZBA/Q7APg==,mgTTNmvzj4oex/ggAqheqA==
+      - API_TOKEN_SALT=5HgoCc7XS2r
+      - ADMIN_JWT_SECRET=gsjgr5qGL
+      - TRANSFER_TOKEN_SALT=tJupURDYP
+      - ENCRYPTION_KEY=OF22IEg/pe0IL
+      - JWT_SECRET=awxQbdXteFr5F1
+      - DATABASE_CLIENT=sqlite
+      - DATABASE_FILENAME=.tmp/data.db
+    volumes:
+      - strapi_data:/opt/app/.tmp
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  strapi_data:
